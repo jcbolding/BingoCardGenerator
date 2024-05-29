@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BingoCardGenerator": {
+      "commandName": "Project",
+      "commandLineArgs": "256"
+    }
+  }
+}

@@ -11,9 +11,13 @@ namespace BingoCardGenerator
     {
         static void Main(string[] args)
         {
+            int count = 1000;
 
-            int count = 10000;
-            string filename = @"c:\temp\BingoCards.pdf";
+            if (args.Length > 0)
+                int.TryParse(args[0], out count);
+            if (count == 0)
+                return;
+            string filename = $@"c:\temp\BlueBingoCards{count}.pdf";
 
 
             Console.WriteLine($"Generating {count} bingo cards.");
@@ -28,8 +32,8 @@ namespace BingoCardGenerator
             PdfDocument document = new PdfDocument();
             document.Info.Title = "BingoCards";
 
-            XFont font = new XFont("Stencil", 36, XFontStyle.Bold);
-            var pen = new XPen(XBrushes.Black, 3);
+            XFont font = new XFont("Segoe UI Black", 36, XFontStyle.Bold);
+            var pen = new XPen(XColors.Blue, 3);
 
 
 
@@ -55,13 +59,13 @@ namespace BingoCardGenerator
                 rect.X += size;
 
 
-                if(cards.IndexOf(card) % 50 ==1)
+                if(cards.IndexOf(card) % 50 == 0)
 				{
-                    Console.WriteLine($"{cards.IndexOf(card) -1} cards done.");
+                    Console.WriteLine($"{cards.IndexOf(card)} cards done.");
                 }
             }
 
-            Console.WriteLine($"All done generating PDF.");
+            Console.WriteLine($"All done generating PDF of {count} cards.");
 
             Console.WriteLine($"Saving PDF as {filename}.");
             // Save the document...
@@ -88,7 +92,7 @@ namespace BingoCardGenerator
         {
             gfx.DrawRectangle(pen, rect);
             // Draw the text
-            gfx.DrawString(text, font, XBrushes.Black, rect, XStringFormats.Center);
+            gfx.DrawString(text, font, XBrushes.Blue, rect, XStringFormats.Center);
         }
     }
 }
